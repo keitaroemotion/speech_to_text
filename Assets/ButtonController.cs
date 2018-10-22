@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using IBM.Watson.DeveloperCloud.Services.SpeechToText.v1;
 using IBM.Watson.DeveloperCloud.Services.Assistant.v1;
 using IBM.Watson.DeveloperCloud.Utilities;
@@ -9,7 +10,7 @@ using IBM.Watson.DeveloperCloud.Connection;
 public class ButtonController : MonoBehaviour {
     [SerializeField]
     private SpeechToText m_SpeechToText;
-    
+
     public AudioClip audio;
     public AudioSource audioSource;
 
@@ -59,31 +60,6 @@ public class ButtonController : MonoBehaviour {
         yield return new WaitForSeconds(1f);
     }
 
-    //IEnumerator Start(){
-
-    //        audioSource.clip = Microphone.Start(null, true, 10, 44100);
-    //        audioSource.loop = false;
-    //        audioSource.spatialBlend = 0.0f;
-    //        yield return new WaitForSeconds(5f);
-    //        Microphone.End(null); //集音終了
-    //        Debug.Log("Finish record");
-    //
-    //        Debug.Log("Playing");
-    //        // ためしに録音内容を再生してみる
-    //        audioSource.Play();
-    //        Debug.Log("Play Finished");
-    //
-    //        // SpeechToText を日本語指定して、録音音声をテキストに変換
-    //        m_SpeechToText.RecognizeModel = "ja-JP_BroadbandModel";
-    //        m_SpeechToText.Recognize(HandleOnRecognize, OnFail, audioSource.clip);
-    //    }
-    //}
-
-    void Update(){
-    //    Button button = GameObject.Find("Button").GetComponent<Button>();
-    //    btn1.onClick.AddListener(InsertWordsIntoDatabase);
-    }
-
     void HandleOnRecognize(SpeechRecognitionEvent result, Dictionary<string, object> customData)
     {
         if (result != null && result.results.Length > 0)
@@ -93,7 +69,9 @@ public class ButtonController : MonoBehaviour {
                 foreach (var alt in res.alternatives)
                 {
                     string text = alt.transcript;
-                    Debug.Log(string.Format("{0} ({1}, {2:0.00})\n", text, res.final ? "Final" : "Interim", alt.confidence));
+                    var resultText = string.Format("{0} ({1}, {2:0.00})\n", text, res.final ? "Final" : "Interim", alt.confidence);
+                    Debug.Log(resultText);
+                    GameObject.Find("Result").GetComponent<Text>().text = resultText;
                 }
             }
         }
