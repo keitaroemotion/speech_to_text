@@ -36,10 +36,10 @@ public class ButtonController : MonoBehaviour {
         this.audioSource.Play();
         yield return new WaitForSeconds(0.1f);
 
-        var audioSource  = GetComponent<AudioSource>();
+        var audioSource          = GetComponent<AudioSource>();
 
-        audioSource.clip = Microphone.Start(null, true, 10, 44100);
-        audioSource.loop = false;
+        audioSource.clip         = Microphone.Start(null, true, 10, 44100);
+        audioSource.loop         = false;
         audioSource.spatialBlend = 0.0f;
         
         yield return new WaitForSeconds(MAXIMUM_LENGTH);
