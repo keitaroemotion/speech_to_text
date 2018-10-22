@@ -17,7 +17,6 @@ public class ButtonController : MonoBehaviour {
     string cre_id        = "2edf7f72-225b-4692-832b-abb07870ac18";                  
     string cre_pw        = "ppa81Jdk6PTx";                                          
     string cre_url       = "https://stream.watsonplatform.net/speech-to-text/api";
-    bool   isSoundPlayed = false;
     float MAXIMUM_LENGTH = 5.0f;
 
     void Awake(){
@@ -47,10 +46,11 @@ public class ButtonController : MonoBehaviour {
 
         Microphone.End(null);
         Debug.Log("Finish record");
-    
+   
         Debug.Log("Playing");
         audioSource.Play();
         Debug.Log("Play Finished");
+        this.audioSource.Play();
         yield return new WaitForSeconds(1f);
     
         // SpeechToText を日本語指定して、録音音声をテキストに変換
